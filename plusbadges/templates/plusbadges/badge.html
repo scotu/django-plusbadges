@@ -23,6 +23,7 @@
     </div>
     {% if person.post_list %}
     <div id="content">
+    <p>Last public post:</p>
         {% for post in person.post_list %}
             {{post.object.content|safe}}
         {% endfor %}
