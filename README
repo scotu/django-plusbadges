@@ -1,1 +1,3 @@
 Django app to create Google+ user-badges as embeddable web widgets
+
+Note: on python version 2.5 or less the package ssl is needed
