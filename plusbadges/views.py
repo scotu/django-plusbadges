@@ -24,14 +24,23 @@ def plusbadge(request, badge_index, google_profile_id):
     service = build("plus", "v1", http=http, developerKey=settings.GOOGLE_API_KEY)
 
     people_resource = service.people()
+    
+    activities_resource = service.activities()
+    
     try:
         people_document = people_resource.get(userId=google_profile_id).execute(http)
+        
+        activities_document = activities_resource.list(userId=google_profile_id, collection="public", maxResults=1).execute()
+        post_list = None
+        if 'items' in activities_document:
+            post_list = activities_document["items"]
 
         return render_to_response("plusbadges/badge.html", {
             "person": {
                 "displayName": people_document["displayName"],
                 "image":{"url": people_document["image"]["url"]},
-                "tagline": people_document["tagline"]
+                "tagline": people_document["tagline"],
+                "post_list": post_list
             }
             })
     except:
