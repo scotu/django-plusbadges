@@ -31,6 +31,10 @@ def plusbadge(request, badge_index, google_profile_id):
     
     activities_resource = service.activities()
     
+    template = "plusbadges/badge.html"
+    if request.GET.get("embed", "no") == "yes":
+        template = "plusbadges/embeddable_badge.html"
+
     try:
         people_document = people_resource.get(userId=google_profile_id).execute(http)
         
@@ -39,8 +43,9 @@ def plusbadge(request, badge_index, google_profile_id):
         if 'items' in activities_document:
             post_list = activities_document["items"]
 
-        return render_to_response("plusbadges/badge.html", {
+        return render_to_response(template, {
             "person": {
+                "id": people_document["id"],
                 "displayName": people_document["displayName"],
                 "image":{"url": people_document["image"]["url"]},
                 "tagline": people_document["tagline"],

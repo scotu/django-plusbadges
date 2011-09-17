@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title %}{{person.displayName}}{% endblock %}
+
+{% block style %}
+body{margin:0;}
+#badge {width:210px; border:#ebebeb 1px solid;}
+#heading{border-bottom:#D2D2D2 1px solid;background:#f1f1f1; padding:4px 4px 0 4px;}
+#mugshot {float:left;padding:0 4px 4px 0;}
+#badge{font-size:15px;font-family:arial,sans-serif;color:#464646;}
+#displayName{font-size:20px;font-weight:normal;color:black;margin:0;}
+#content{border-bottom:#D2D2D2 1px solid;font-size:13px; padding:0 4px;word-wrap:break-word;}
+.post{margin-bottom:1em;}
+#content img{max-width:100%;}
+#footer{font-size:10px;height:1em;background:#f1f1f1;}
+#footer p{margin:0;text-align:right;}
+{% endblock %}
+
+{% block page %}
+<div id="badge">
+    <div id="heading">
+        <img id="mugshot" src="{{person.image.url}}?sz=70">
+        <h1 id="displayName">{{person.displayName}}</h1>
+        <p>{{person.tagline}}</p>
+    </div>
+    {% if person.post_list %}
+    <div id="content">
+{% if media.embed %}
+{% endif %}
+{% if media.embed %}
+{% endif %}
+{% if media.embed %}
+{% endif %}
+    <p>Last public post:</p>
+        {% for post in person.post_list %}
+            <div class="post">{{post.object.content|safe}}</div>
+            {% for media in post.object.attachments %}
+                {% if media.embed %}<div class="sub">{{media.embed|safe}}</div>{% endif %}
+                {% if media.image %}<div class="sub"><img src="{{media.image.url}}" alt="{{media.content}}"></div>{% endif %}
+            {% endfor %}
+        {% endfor %}
+    </div>
+    {% endif %}
+    <div id="footer">
+        <p>google+ <a href="http://plustoys.powazord.com">unofficial badge</a></p>
+    </div>
+</div>
+{% endblock %}
