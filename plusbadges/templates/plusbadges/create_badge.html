@@ -1,29 +1,33 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Google plus badge generator</title>
+        <title>Google+ badge generator</title>
 <style type="text/css">
-.google_profile_id{color:red;font-weight:bold;}
 header{border-bottom:#D2D2D2 1px solid;background:#f1f1f1; padding:4px 4px 0 4px;}
 header h1{font-size:20px;font-weight:normal;color:black;margin:0;}
 #content{border-bottom:#D2D2D2 1px solid;font-size:13px; padding:0 4px;word-wrap:break-word;}
-
+footer{font-size:10px;}
 .errorlist{color:red;}
+.google_profile_id{color:red;font-weight:bold;}
 
 </style>
     </head>
     <body>
 <div class="page">
     <header>
-        <h1>Google plus badge generator</h1>
+        <h1>Google+ badge generator</h1>
     </header>
     <div id="content">
-    <p>Insert your google plus id below and click "Get badge".</p>
-    <p>The user id is the long number in your Google Profile URL, for example in https://plus.google.com/<span class="google_profile_id">114215982869604846796</span>/posts the id is the number in red.</p>
+    <p>Insert your Google profile id below and click "Get badge".</p>
+    <p>The Google profile id is the long number in your <a href="https://plus.google.com/me">Google Profile URL</a> (click to get to your own), for example in https://plus.google.com/<span class="google_profile_id">114215982869604846796</span>/posts the id is the number in red.</p>
         <form method="POST" action="">
             {% csrf_token %}
             {{form.as_p}}
             <input type="submit" value="Get badge">
         </form>
     </div>
+    <footer>
+    <p>Sources (by <a href="http://matteoscotuzzi.com">Matteo</a>) on <a href="https://github.com/scotu/plustoys_powazord_com">github.com/scotu/plustoys_powazord_com</a> and <a href="https://github.com/scotu/django-plusbadges">github.com/scotu/django-plusbadges</a>
+    <p>Made with <a href="http://www.djangoproject.com/">Django</a> :)</p>
+    </footer>
 </div>
