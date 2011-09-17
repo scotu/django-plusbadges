@@ -2,7 +2,7 @@
 from django.conf.urls.defaults import *
 
 urlpatterns = patterns('plusbadges.views',
-    # url(r'^/$', 'plusbadges_home', name='plusbadges_home'),
+    url(r'^$', 'plusbadges_home', name='plusbadges_home'),
     url(r'^(?P<badge_index>\d+)/(?P<google_profile_id>\d+)/$', 'plusbadge', name='plusbadges_badge'),
 )
 

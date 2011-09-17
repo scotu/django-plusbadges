@@ -1,11 +1,15 @@
 # -*- Mode: Python; coding: utf-8; indent-tabs-mode: nil; tab-width: 4 -*-
 from django.http import HttpResponse, Http404, HttpResponseRedirect
+from django.core.urlresolvers import reverse
 from django.shortcuts import render_to_response
 from django.conf import settings
+from django.template import RequestContext
 
 import httplib2
 
 from apiclient.discovery import build
+
+from plusbadges.forms import GoogleIdForm
 
 
 
@@ -45,4 +49,23 @@ def plusbadge(request, badge_index, google_profile_id):
             })
     except:
         return HttpResponse("Error trying to display id %s." % google_profile_id)
+
+def plusbadges_home(request):
+    if request.method == 'POST':
+        form = GoogleIdForm(request.POST)
+        if form.is_valid():
+            google_profile_id = form.cleaned_data['google_profile_id']
+            if not google_profile_id:
+                return HttpResponseRedirect(reverse("plusbadges_home"))
+            return HttpResponseRedirect(reverse("plusbadges_badge", kwargs={"badge_index": 0,"google_profile_id":google_profile_id}))
+        else:
+            return render_to_response("plusbadges/create_badge.html",
+                {"form": form},
+                context_instance=RequestContext(request))
+    else:
+        form = GoogleIdForm()
+        return render_to_response("plusbadges/create_badge.html",
+            {"form": form},
+            context_instance=RequestContext(request))
+            
 

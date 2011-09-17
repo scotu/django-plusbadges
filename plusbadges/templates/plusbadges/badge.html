@@ -12,7 +12,6 @@
 .post{margin-bottom:1em;}
 #footer{font-size:10px;height:1em;background:#f1f1f1;}
 #footer p{margin:0;text-align:right;}
-
 </style>
     </head>
     <body>
@@ -24,9 +23,19 @@
     </div>
     {% if person.post_list %}
     <div id="content">
+{% if media.embed %}
+{% endif %}
+{% if media.embed %}
+{% endif %}
+{% if media.embed %}
+{% endif %}
     <p>Last public post:</p>
         {% for post in person.post_list %}
             <div class="post">{{post.object.content|safe}}</div>
+            {% for media in post.object.attachments %}
+                {% if media.embed %}<div class="sub">{{media.embed|safe}}</div>{% endif %}
+                {% if media.image %}<div class="sub"><img src="{{media.image.url}}" alt="{{media.content}}"></div>{% endif %}
+            {% endfor %}
         {% endfor %}
     </div>
     {% endif %}
