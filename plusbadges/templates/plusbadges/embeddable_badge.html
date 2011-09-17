@@ -19,9 +19,10 @@ body{margin:0;}
 {% block page %}
 <div id="badge">
     <div id="heading">
-        <img id="mugshot" src="{{person.image.url}}?sz=70">
+        {% if person.image.url %}<img id="mugshot" src="{{person.image.url}}?sz=70">{% endif %}
         <h1 id="displayName">{{person.displayName}}</h1>
-        <p>{{person.tagline}}</p>
+        {% if person.tagline %}<p>{{person.tagline}}</p>{% endif %}
+        <div style="clear:both;"></div>
     </div>
     {% if person.post_list %}
     <div id="content">

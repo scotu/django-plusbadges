@@ -47,8 +47,8 @@ def plusbadge(request, badge_index, google_profile_id):
             "person": {
                 "id": people_document["id"],
                 "displayName": people_document["displayName"],
-                "image":{"url": people_document["image"]["url"]},
-                "tagline": people_document["tagline"],
+                "image":{"url": people_document.get("image", {"url":""}).get("url")},
+                "tagline": people_document.get("tagline", ""),
                 "post_list": post_list
             }
             })
