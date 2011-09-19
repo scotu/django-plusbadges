@@ -1,11 +1,13 @@
 {% extends "base.html" %}
-{% block style %}
+{% block extra_head %}
+<style type="text/css">
 header{border-bottom:#D2D2D2 1px solid;background:#f1f1f1; padding:4px 4px 0 4px;}
 header h1{font-size:20px;font-weight:normal;color:black;margin:0;}
 #content{border-bottom:#D2D2D2 1px solid;font-size:13px; padding:0 4px;word-wrap:break-word;}
 footer{font-size:10px;}
 .errorlist{color:red;}
 .google_profile_id{color:red;font-weight:bold;}
+</style>
 {% endblock %}
 
 {% block page %}

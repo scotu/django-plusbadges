@@ -8,7 +8,7 @@ setup(
     packages=find_packages(),
     include_package_data=True,
     zip_safe=False,
-    version="0.2",
+    version="0.3",
     author="Matteo Scotuzzi",
     author_email="matteo.scotuzzi@gmail.com",
     classifiers = ['Framework :: Django',
@@ -19,4 +19,5 @@ setup(
     url="https://github.com/scotu/django-plusbadges",
     license="MIT",
     platforms=["all"],
+    install_requires=["pyRFC3339"]
 )

@@ -4,12 +4,12 @@
 <html>
     <head>
         <title>{% block title %}Google+ badge generator{% endblock %}</title>
-<style type="text/css">
-{% block style %}
-{% endblock %}
-</style>
-{% analytics_async %}
-</head>
+
+        {% block extra_head %}
+        {% endblock %}
+
+        {% analytics_async %}
+    </head>
 <body>
 {% block page %}
 {% endblock %}

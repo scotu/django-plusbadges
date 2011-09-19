@@ -34,26 +34,23 @@ def plusbadge(request, badge_index, google_profile_id):
     template = "plusbadges/badge.html"
     if request.GET.get("embed", "no") == "yes":
         template = "plusbadges/embeddable_badge.html"
-
-    try:
-        people_document = people_resource.get(userId=google_profile_id).execute(http)
+    
+    people_document = people_resource.get(userId=google_profile_id).execute(http)
+    
+    activities_document = activities_resource.list(userId=google_profile_id, collection="public", maxResults=1).execute()
+    post_list = None
+    if 'items' in activities_document:
+        post_list = activities_document["items"]
         
-        activities_document = activities_resource.list(userId=google_profile_id, collection="public", maxResults=1).execute()
-        post_list = None
-        if 'items' in activities_document:
-            post_list = activities_document["items"]
-
-        return render_to_response(template, {
-            "person": {
-                "id": people_document["id"],
-                "displayName": people_document["displayName"],
-                "image":{"url": people_document.get("image", {"url":""}).get("url")},
-                "tagline": people_document.get("tagline", ""),
-                "post_list": post_list
-            }
-            })
-    except:
-        return HttpResponse("Error trying to display id %s." % google_profile_id)
+    return render_to_response(template, {
+        "person": {
+            "id": people_document["id"],
+            "displayName": people_document["displayName"],
+            "image":{"url": people_document.get("image", {"url":""}).get("url")},
+            "tagline": people_document.get("tagline", ""),
+            "post_list": post_list
+        }
+        })
 
 def plusbadges_home(request):
     if request.method == 'POST':
