@@ -1,121 +1,13 @@
 {% extends "base.html" %}
-{% load parse_rfc_date %}
-{% load humanize %}
 
-{% block title %}{{person.displayName}}{% endblock %}
+{% block title %}+{{person.displayName}}{% endblock %}
 
 {% block extra_head %}
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
-<script type="text/javascript">
-$(document).ready(function(){
-    $(".video-placeholder").click(function(){
-        //var template = "<iframe width='100%' src='{{attached.url}}' frameborder='0' allowfullscreen></iframe>";
-        var link = $(this).parent(); // a element
-        link.parent().html("<iframe width='100%' src='"+link.attr("href")+"' frameborder='0' allowfullscreen></iframe>"); // div.sub element
-        return false;
-    });
-});
-</script>
+{% include "plusbadges/includes/badge_javascripts.html" %}
 
-<style type="text/css">
-body{margin:0;}
-#badge {width:210px; border:#ebebeb 1px solid;}
-#heading{border-bottom:#D2D2D2 1px solid;background:#f1f1f1; padding:4px 4px 0 4px;}
-.mugshot {float:left;padding:0 4px 4px 0;}
-#badge{font-size:15px;font-family:arial,sans-serif;color:#464646;}
-#displayName{font-size:20px;font-weight:normal;color:black;margin:0;}
-#content{border-bottom:#D2D2D2 1px solid;font-size:13px; padding:0 4px;word-wrap:break-word;}
-.post{margin-bottom:1em;}
-#content img{max-width:100%;}
-#footer{font-size:10px;height:1em;background:#f1f1f1;}
-#footer p{margin:0;text-align:right;}
-.video, .photo, .article{padding:2px;border-left:5px solid #b2b2b2;}
-h3{margin-top:0;}
-.less{color:#b2b2b2;}
-.meta{font-size:10px;background:#f1f1f1;margin-bottom:2px;}
-</style>
+{% include "plusbadges/includes/badge_stylesheets.html" %}
 {% endblock %}
 
 {% block page %}
-<div id="badge">
-    <div id="heading">
-        {% if person.image.url %}<img class="mugshot" src="{{person.image.url}}?sz=70">{% endif %}
-        <h1 id="displayName">{{person.displayName}}</h1>
-        {% if person.tagline %}<p>{{person.tagline}}</p>{% endif %}
-        <div style="clear:both;"></div>
-    </div>
-    {% if person.post_list %}
-    <div id="content">
-        {% for post in person.post_list %}
-        {% if forloop.first %}
-            <p class="less">Last public {{post.object.objectType}}:</p>
-        {% endif %}
-            <div class="meta">
-                <img class="mugshot" src="{{post.actor.image.url}}?sz=16" alt="{{post.actor.displayName}}">{{post.actor.displayName}} - <a href="{{post.url}}">{{post.published|parse_rfc_timestamp|naturalday:"D d M Y"}} at {{post.published|parse_rfc_timestamp|time}}</a>
-                <div style="clear:both;"></div>
-            </div>
-            {% if post.annotation %}
-                <div class="post">{{post.annotation|safe}}</div>
-            {% else %}
-                {% if post.object.content %}
-                    <div class="post">{{post.object.content|safe}}</div>
-                {% endif %}
-            {% endif %}
-            {% for attached in post.object.attachments %}
-            
-                <div class="{{attached.objectType}}">
-                {% if post.object.objectType == "activity" %}
-                    <div class="meta">
-                        <img class="mugshot" src="{{post.object.actor.image.url}}?sz=16" alt="{{post.object.actor.displayName}}">{{post.object.actor.displayName}} <a href="{{post.object.url}}">originally shared this post:</a>
-                        <div style="clear:both;"></div>
-                    </div>
-                {% endif %}
-                {% if attached.objectType == "photo" %}
-                {% if attached.image %}
-                    {% if post.object.content and post.object.objectType == "activity" %}
-                        <div class="post">{{post.object.content|safe}}</div>
-                    {% endif %}
-                            <img src="{{attached.image.url}}" alt="{% if attached.content %}{{attached.content}}{% endif %}">
-                    {% endif %}
-                {% endif %}
-                {% if attached.objectType == "video" %}
-                    {% if attached.displayName %}
-                    <div class="sub">
-                        <h3>
-                        {% if object.url %}<a href="{{object.url}}">{% endif %}
-                        {{attached.displayName}}
-                        {% if object.url %}</a>{% endif %}
-                        </h3>
-                    </div>
-                    {% endif %}
-                    <div class="sub"><a href="{{attached.url}}"><img class="video-placeholder" src="{{attached.image.url}}" alt={{attached.displayName}}></a></div>
-                    {% if attached.content %}
-                    <div class="sub">{{attached.content|safe}}</div>
-                    {% endif %}
-                {% endif %}
-                {% if attached.objectType == "article" %}
-                    {% if attached.displayName %}
-                        <h3>
-                            {% if attached.url %}<a href="{{attached.url}}">{% endif %}
-                            {{attached.displayName}}
-                            {% if attached.url %}</a>{% endif %}
-                        </h3>
-                    {% endif %}
-                    {% if attached.image %}
-                        <img src="{{attached.image.url}}" alt="{% if attached.displayName %}{{attached.displayName}}{% endif %}">
-                    {% endif %}
-                    {% if attached.content %}
-                        <div class="sub">{{attached.content}}</div>
-                    {% endif %}
-                {% endif %}
-                </div>
-
-            {% endfor %}
-        {% endfor %}
-    </div>
-    {% endif %}
-    <div id="footer">
-        <p>google+ <a href="http://plustoys.powazord.com">unofficial badge</a></p>
-    </div>
-</div>
+{% include "plusbadges/includes/badge_body.html" %}
 {% endblock %}

@@ -1,0 +1,84 @@
+{% load parse_rfc_date %}
+{% load humanize %}
+<div id="badge">
+    <div id="heading">
+        {% if person.image.url %}<img class="mugshot" src="{{person.image.url}}?sz=70">{% endif %}
+        <h1 id="displayName">+{{person.displayName}}</h1>
+        {% if person.tagline %}<p>{{person.tagline}}</p>{% endif %}
+        <div style="clear:both;"></div>
+    </div>
+    {% if person.post_list %}
+    <div id="content">
+        {% for post in person.post_list %}
+        {% if forloop.first %}
+            <p class="less">Last public {{post.object.objectType}}:</p>
+        {% endif %}
+            <div class="meta">
+                <img class="mugshot" src="{{post.actor.image.url}}?sz=16" alt="{{post.actor.displayName}}">{{post.actor.displayName}} - <a href="{{post.url}}">{{post.published|parse_rfc_timestamp|date:"D d M Y"}} at {{post.published|parse_rfc_timestamp|time:"TIME_FORMAT"}}</a>
+                <div style="clear:both;"></div>
+            </div>
+            {% if post.annotation %}
+                <div class="post">{{post.annotation|safe}}</div>
+            {% else %}
+                {% if post.object.content %}
+                    <div class="post">{{post.object.content|safe}}</div>
+                {% endif %}
+            {% endif %}
+            {% for attached in post.object.attachments %}
+            
+                <div class="{{attached.objectType}}">
+                {% if post.object.objectType == "activity" %}
+                    <div class="meta">
+                        <img class="mugshot" src="{{post.object.actor.image.url}}?sz=16" alt="{{post.object.actor.displayName}}">{{post.object.actor.displayName}} <a href="{{post.object.url}}">originally shared this post:</a>
+                        <div style="clear:both;"></div>
+                    </div>
+                {% endif %}
+                {% if attached.objectType == "photo" %}
+                {% if attached.image %}
+                    {% if post.object.content and post.object.objectType == "activity" %}
+                        <div class="post">{{post.object.content|safe}}</div>
+                    {% endif %}
+                            <img src="{{attached.image.url}}" alt="{% if attached.content %}{{attached.content}}{% endif %}">
+                    {% endif %}
+                {% endif %}
+                {% if attached.objectType == "video" %}
+                    {% if attached.displayName %}
+                    <div class="sub">
+                        <h3>
+                        {% if object.url %}<a href="{{object.url}}">{% endif %}
+                        {{attached.displayName}}
+                        {% if object.url %}</a>{% endif %}
+                        </h3>
+                    </div>
+                    {% endif %}
+                    <div class="sub"><a href="{{attached.url}}"><img class="video-placeholder" src="{{attached.image.url}}" alt={{attached.displayName}}></a></div>
+                    {% if attached.content %}
+                    <div class="sub">{{attached.content|safe}}</div>
+                    {% endif %}
+                {% endif %}
+                {% if attached.objectType == "article" %}
+                    {% if attached.displayName %}
+                        <h3>
+                            {% if attached.url %}<a href="{{attached.url}}">{% endif %}
+                            {{attached.displayName}}
+                            {% if attached.url %}</a>{% endif %}
+                        </h3>
+                    {% endif %}
+                    {% if attached.image %}
+                        <img src="{{attached.image.url}}" alt="{% if attached.displayName %}{{attached.displayName}}{% endif %}">
+                    {% endif %}
+                    {% if attached.content %}
+                        <div class="sub">{{attached.content}}</div>
+                    {% endif %}
+                {% endif %}
+                </div>
+
+            {% endfor %}
+        {% endfor %}
+    </div>
+    {% endif %}
+    <div id="footer">
+        <p>google+ <a href="http://plustoys.powazord.com">unofficial badge</a></p>
+    </div>
+</div>
+
