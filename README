@@ -1,3 +1,8 @@
 Django app to create Google+ user-badges as embeddable web widgets
 
 Note: on python version 2.5 or less the package ssl is needed
+
+Included templates:
+ * plusbadges/create_badge.html: template used for the page that hosts the form that ask for user data needed to create the badge
+ * plusbadges/badge.html: the result page showing embeddable codes and an example of the actual badge
+ * plusbadges/embeddable_badge.html: the actual badge html
