@@ -1,49 +1,49 @@
 {% load parse_rfc_date %}
 {% load humanize %}
-<div id="badge">
-    <div id="heading">
-        {% if person.image.url %}<img class="mugshot" src="{{person.image.url}}?sz=70">{% endif %}
-        <h1 id="displayName">+{{person.displayName}}</h1>
+<div id="com-powazord-plustoys-badge">
+    <div id="com-powazord-plustoys-heading">
+        {% if person.image.url %}<img class="com-powazord-plustoys-mugshot" src="{{person.image.url}}">{% endif %}
+        <h1 id="com-powazord-plustoys-displayName">+{{person.displayName}}</h1>
         {% if person.tagline %}<p>{{person.tagline}}</p>{% endif %}
         <div style="clear:both;"></div>
     </div>
     {% if person.post_list %}
-    <div id="content">
+    <div id="com-powazord-plustoys-content">
         {% for post in person.post_list %}
         {% if forloop.first %}
-            <p class="less">Last public {{post.object.objectType}}:</p>
+            <p class="com-powazord-plustoys-less">Last public {{post.object.objectType}}:</p>
         {% endif %}
-            <div class="meta">
-                <img class="mugshot" src="{{post.actor.image.url}}?sz=16" alt="{{post.actor.displayName}}">{{post.actor.displayName}} - <a href="{{post.url}}">{{post.published|parse_rfc_timestamp|date:"D d M Y"}} at {{post.published|parse_rfc_timestamp|time:"TIME_FORMAT"}}</a>
+            <div class="com-powazord-plustoys-meta">
+                <img class="com-powazord-plustoys-mugshot" src="{{post.actor.image.url}}" alt="{{post.actor.displayName}}">{{post.actor.displayName}} - <a href="{{post.url}}">{{post.published|parse_rfc_timestamp|date:"D d M Y"}} at {{post.published|parse_rfc_timestamp|time:"TIME_FORMAT"}}</a>
                 <div style="clear:both;"></div>
             </div>
             {% if post.annotation %}
-                <div class="post">{{post.annotation|safe}}</div>
+                <div class="com-powazord-plustoys-post">{{post.annotation|safe}}</div>
             {% else %}
                 {% if post.object.content %}
-                    <div class="post">{{post.object.content|safe}}</div>
+                    <div class="com-powazord-plustoys-post">{{post.object.content|safe}}</div>
                 {% endif %}
             {% endif %}
             {% for attached in post.object.attachments %}
             
-                <div class="{{attached.objectType}}">
+                <div class="com-powazord-plustoys-{{attached.objectType}}">
                 {% if post.object.objectType == "activity" %}
-                    <div class="meta">
-                        <img class="mugshot" src="{{post.object.actor.image.url}}?sz=16" alt="{{post.object.actor.displayName}}">{{post.object.actor.displayName}} <a href="{{post.object.url}}">originally shared this post:</a>
+                    <div class="com-powazord-plustoys-meta">
+                        <img class="com-powazord-plustoys-mugshot" src="{{post.object.actor.image.url}}" alt="{{post.object.actor.displayName}}">{{post.object.actor.displayName}} <a href="{{post.object.url}}">originally shared this post:</a>
                         <div style="clear:both;"></div>
                     </div>
                 {% endif %}
                 {% if attached.objectType == "photo" %}
                 {% if attached.image %}
                     {% if post.object.content and post.object.objectType == "activity" %}
-                        <div class="post">{{post.object.content|safe}}</div>
+                        <div class="com-powazord-plustoys-post">{{post.object.content|safe}}</div>
                     {% endif %}
                             <img src="{{attached.image.url}}" alt="{% if attached.content %}{{attached.content}}{% endif %}">
                     {% endif %}
                 {% endif %}
                 {% if attached.objectType == "video" %}
                     {% if attached.displayName %}
-                    <div class="sub">
+                    <div class="com-powazord-plustoys-sub">
                         <h3>
                         {% if object.url %}<a href="{{object.url}}">{% endif %}
                         {{attached.displayName}}
@@ -51,9 +51,9 @@
                         </h3>
                     </div>
                     {% endif %}
-                    <div class="sub"><a href="{{attached.url}}"><img class="video-placeholder" src="{{attached.image.url}}" alt={{attached.displayName}}></a></div>
+                    <div class="com-powazord-plustoys-sub"><a href="{{attached.url}}"><img class="video-placeholder" src="{{attached.image.url}}" alt={{attached.displayName}}></a></div>
                     {% if attached.content %}
-                    <div class="sub">{{attached.content|safe}}</div>
+                    <div class="com-powazord-plustoys-sub">{{attached.content|safe}}</div>
                     {% endif %}
                 {% endif %}
                 {% if attached.objectType == "article" %}
@@ -68,7 +68,7 @@
                         <img src="{{attached.image.url}}" alt="{% if attached.displayName %}{{attached.displayName}}{% endif %}">
                     {% endif %}
                     {% if attached.content %}
-                        <div class="sub">{{attached.content}}</div>
+                        <div class="com-powazord-plustoys-sub">{{attached.content}}</div>
                     {% endif %}
                 {% endif %}
                 </div>
@@ -77,7 +77,7 @@
         {% endfor %}
     </div>
     {% endif %}
-    <div id="footer">
+    <div id="com-powazord-plustoys-footer">
         <p>google+ <a href="http://plustoys.powazord.com">unofficial badge</a></p>
     </div>
 </div>

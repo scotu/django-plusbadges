@@ -1,7 +1,6 @@
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
-    $(".video-placeholder").click(function(){
+    $(".com-powazord-plustoys-video-placeholder").click(function(){
         var link = $(this).parent(); // a element
         link.parent().html("<iframe width='100%' src='"+link.attr("href")+"' frameborder='0' allowfullscreen></iframe>"); // div.sub element
         return false;

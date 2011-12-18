@@ -3,11 +3,14 @@
 {% block title %}+{{person.displayName}}{% endblock %}
 
 {% block extra_head %}
-{% include "plusbadges/includes/badge_javascripts.html" %}
-
-{% include "plusbadges/includes/badge_stylesheets.html" %}
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+    {% include "plusbadges/includes/badge_javascripts.html" %}
+    <style type="text/css">
+    body{margin:0;}
+    </style>
+    {% include "plusbadges/includes/badge_stylesheets.html" %}
 {% endblock %}
 
 {% block page %}
-{% include "plusbadges/includes/badge_body.html" %}
+    {% include "plusbadges/includes/badge_body.html" %}
 {% endblock %}

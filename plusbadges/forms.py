@@ -2,4 +2,4 @@
 from django import forms
 
 class GoogleIdForm(forms.Form):
-    google_profile_id = forms.RegexField(regex=r'\d+')
+    google_profile_id = forms.RegexField(regex=r'\d{21}')
