@@ -6,3 +6,4 @@ Included templates:
  * plusbadges/create_badge.html: template used for the page that hosts the form that ask for user data needed to create the badge
  * plusbadges/badge.html: the result page showing embeddable codes and an example of the actual badge
  * plusbadges/embeddable_badge.html: the actual badge html
+ * plusbadges/embeddable_fragment_badge.html: the badge's html for the iframe-less badge
